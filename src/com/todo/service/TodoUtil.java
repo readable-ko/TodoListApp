@@ -21,10 +21,9 @@ public class TodoUtil {
 		System.out.println("[항목 추가] \n"
 				+ "제목 > ");
 		
-		title = sc.next();
+		title = sc.nextLine();
 		if (list.isDuplicate(title)) {
 			System.out.printf("제목이 중복됩니다!");
-			sc.close();
 			return;
 		}
 		
@@ -34,13 +33,12 @@ public class TodoUtil {
 		TodoItem t = new TodoItem(title, desc);
 		list.addItem(t);
 		System.out.println("내용이 추가되었습니다.");
-		sc.close();
 	}
 
 	public static void deleteItem(TodoList l) {
 		
 		Scanner sc = new Scanner(System.in);
-		String title = sc.next();
+		String title = sc.nextLine().trim();
 		
 		System.out.println("[항목 삭제]\n"
 				+ "삭제할 항목의 제목을 입력하시오 > ");
@@ -52,7 +50,6 @@ public class TodoUtil {
 				break;
 			}
 		}
-		sc.close();
 	}
 
 
@@ -66,7 +63,6 @@ public class TodoUtil {
 		String title = sc.nextLine().trim();
 		if (!l.isDuplicate(title)) {
 			System.out.println("존재하지 않는 제목입니다!");
-			sc.close();
 			return;
 		}
 
@@ -74,7 +70,6 @@ public class TodoUtil {
 		String new_title = sc.nextLine().trim();
 		if (l.isDuplicate(new_title)) {
 			System.out.println("중복된 제목입니다!");
-			sc.close();
 			return;
 		}
 		
@@ -88,7 +83,6 @@ public class TodoUtil {
 				System.out.println("수정되었습니다.");
 			}
 		}
-		sc.close();
 	}
 
 	public static void listAll(TodoList l) {
@@ -101,7 +95,9 @@ public class TodoUtil {
 	public static void saveList(TodoList l, String filename) {
 		try {
 			Writer w = new FileWriter(filename);
-			w.write(l.toString());
+			for(TodoItem item : l.getList()) {
+				w.write(item.toSaveString());
+			}
 			System.out.println("데이터 저장 완료!!");
 			w.close();
 		} catch (IOException e) {
@@ -124,6 +120,7 @@ public class TodoUtil {
 				
 				TodoItem item = new TodoItem(title,desc);
 				item.setCurrent_date(date);
+				l.addItem(item);
 			}
 			br.close();
 			System.out.println("데이터 로딩 완료!");

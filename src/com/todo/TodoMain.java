@@ -73,7 +73,6 @@ public class TodoMain {
 			
 			if(isList) l.listAll();
 		} while (!quit);
-		sc.close();
 		TodoUtil.saveList(l, "todolist.txt");
 	}
 }
