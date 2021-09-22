@@ -15,10 +15,6 @@ public class TodoItem {
         SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd kk:mm:ss");
         this.current_date=f.format(new Date());
     }
-    
-    public TodoItem(String title2, String desc2, String date) {
-		// TODO Auto-generated constructor stub
-	}
 
 	public String getTitle() {
         return title;
